@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
+
+    private val getData = GetData()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -12,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         println(object : Any(){}.javaClass.enclosingMethod?.name)
+        getData.getData()
         super.onStart()
     }
 
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         println(object : Any(){}.javaClass.enclosingMethod?.name)
+        getData.sendData()
         super.onStop()
     }
 
