@@ -15,4 +15,9 @@ class GetData : LifecycleObserver {
     fun sendData(){
         println("send data")
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+    fun any(){
+        println("any")
+    }
 }
