@@ -2,43 +2,40 @@ package com.mvvmtest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private val getData = GetData()
+    private var myLiveData = MyLiveData()
+    lateinit var observer : Observer<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        lifecycle.addObserver(getData)
-        //println(object : Any(){}.javaClass.enclosingMethod?.name)
+
+        observer = Observer {
+            test_text1.text = it
+        }
+
+        button_save.setOnClickListener {
+            myLiveData.setValueToLiveData(edit_text.text.toString())
+        }
+
     }
 
-//    override fun onStart() {
-//        println(object : Any(){}.javaClass.enclosingMethod?.name)
-//        getData.getData()
-//        super.onStart()
-//    }
-//
-//    override fun onResume() {
-//        println(object : Any(){}.javaClass.enclosingMethod?.name)
-//        super.onResume()
-//    }
-//
-//    override fun onPause() {
-//        println(object : Any(){}.javaClass.enclosingMethod?.name)
-//        super.onPause()
-//    }
-//
-//    override fun onStop() {
-//        println(object : Any(){}.javaClass.enclosingMethod?.name)
-//        getData.sendData()
-//        super.onStop()
-//    }
-//
-//    override fun onDestroy() {
-//        println(object : Any(){}.javaClass.enclosingMethod?.name)
-//        super.onDestroy()
-//    }
+    override fun onStart() {
+        super.onStart()
+        myLiveData.observe(this, observer)
+    }
 
+    override fun onStop() {
+        super.onStop()
+        myLiveData.removeObserver(observer)
+    }
 }
