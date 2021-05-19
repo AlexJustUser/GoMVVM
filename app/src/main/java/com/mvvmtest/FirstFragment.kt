@@ -20,7 +20,9 @@ class FirstFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         first_btn_next.setOnClickListener{
-            (activity as MainActivity).navController.navigate(R.id.action_firstFragment_to_secondFragment)
+            var bundle = Bundle()
+            bundle.putString("key", "hello")
+            (activity as MainActivity).navController.navigate(R.id.action_firstFragment_to_secondFragment, bundle)
         }
     }
 }

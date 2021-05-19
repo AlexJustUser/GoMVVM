@@ -19,7 +19,7 @@ class SecondFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
+        println(arguments?.getString("key"))
         second_btn_next.setOnClickListener{
             (activity as MainActivity).navController.navigate(R.id.action_secondFragment_to_thirdFragment)
         }
